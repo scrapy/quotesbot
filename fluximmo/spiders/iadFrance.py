@@ -4,7 +4,7 @@ import logging
 from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
-from url_utils import clean_url
+from ..url_utils import clean_url
 from ..items.annonceIad import AnnonceIad
 
 logger = logging.getLogger(__name__)
