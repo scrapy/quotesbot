@@ -15,6 +15,8 @@ from fluximmo.items.annonce import Annonce
 logger = logging.getLogger(__name__)
 
 class AnnonceIad(Annonce):
+    name = "iad"
+
     def add_prefix_to_url(url):
         return 'https://www.iadfrance.fr' + url
 

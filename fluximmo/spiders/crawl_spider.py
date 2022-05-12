@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 class CrawlSpiderFluximmo(CrawlSpider):
     handle_httpstatus_list = [410, 404]
-    MAX_PAGES_WITHOUT_NEW_ADS = 0
-    MAX_PAGES = 1
+    MAX_PAGES_WITHOUT_NEW_ADS = 2
+    MAX_PAGES = 4
 
     def __init__(self, *args, **kwargs):
         super(CrawlSpiderFluximmo, self).__init__(*args, **kwargs)
@@ -119,9 +119,6 @@ class CrawlSpiderFluximmo(CrawlSpider):
                 ad_request.meta["ad_url"] = ad_url
 
                 yield ad_request
-
-                # if COUNT_NEW_ADS > 2:
-                #     break
 
         if COUNT_NEW_ADS == 0:
             response.meta['pages_without_new_ads'] += 1

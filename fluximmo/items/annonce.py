@@ -127,9 +127,6 @@ class Annonce(scrapy.Item):
         input_processor=MapCompose(find_number),
         output_processor = TakeFirst()
     )
-    published_at = scrapy.Field(
-        output_processor=TakeFirst()
-    )
     description = scrapy.Field(
         input_processor=MapCompose(remove_tags, str.strip, remove_null_characters),
         output_processor=Join("\n"),
