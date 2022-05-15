@@ -20,7 +20,7 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
 
         """Regex décrivant les formats possibles pouvant prendre les URLs d'une annonce spécifique"""
         self.link_extractor_annonces = LinkExtractor(
-            allow=r"https:\/\/www\.arthurimmo\.com\/annonce\/(location|achat|vente)\/([a-zA-Z-0-9]*)\/([a-zA-Z-0-9]*)-([a-zA-Z-0-9]*)\/r([0-9]*)",
+            allow=r"https:\/\/www\.arthurimmo\.com\/annonces\/(location|achat|vente)\/([a-zA-Z-0-9]*)\/([a-zA-Z-0-9]*)\/([0-9]*)\.htm",
         )
 
     """Génération statique ou dynamique des URLs de listing à scraper (page 1)"""
@@ -62,7 +62,18 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
         i.add_value("agency", True)
         i.add_value("agency_name", "Arthurimmo")
 
-        i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@href, 'photos.')]/@src")
+        i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@href, 'photos.')]/..//@src")
+
+        # TODO mettre dans others toute les caractéristique + dpe ges
+        i.add_xpath(
+            "others",
+            f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src",
+        )
+        i.add_xpath(
+            "others",
+            f"{ROOT_XPATH}/ul[contains(@class, 'grid')]//text()",
+        )
+
         return i.load_item()
 
     """
