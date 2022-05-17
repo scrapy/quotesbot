@@ -64,16 +64,23 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@href, 'photos.')]/..//@src")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
-        i.add_xpath(
-            "others",
-            f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src",
-        )
-        i.add_xpath(
-            "others",
-            f"{ROOT_XPATH}/ul[contains(@class, 'grid')]//text()",
-        )
+        others = []
+        others += response.xpath(f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src").extract()
 
+        li_size = response.xpath(f'normalize-space({ROOT_XPATH}/ul[contains(@class, "grid")]//li)')
+        count = 1
+        while True:
+            xpath = f"normalize-space({ROOT_XPATH}/ul[contains(@class, 'grid')]//li[%s])" % str(count)
+            value = response.xpath(xpath).extract_first()
+            print("value", value)
+            if value == "":
+                break
+            others.append(value)
+            count += 1
+        i.add_value(
+                "others",
+                others,
+            )
         return i.load_item()
 
     """
