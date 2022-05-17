@@ -69,16 +69,12 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
         if dpeges:
             others += dpeges
 
-        li_size = response.xpath(f'normalize-space({ROOT_XPATH}/ul[contains(@class, "grid")]//li)')
-        count = 1
-        while True:
-            xpath = f"normalize-space({ROOT_XPATH}/ul[contains(@class, 'grid')]//li[%s])" % str(count)
-            value = response.xpath(xpath).extract_first()
+        elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "grid")]//li')
+        for elem in elems:
+            value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip()
             print("value", value)
-            if value == "":
-                break
             others.append(value)
-            count += 1
+        
         i.add_value(
                 "others",
                 others,
