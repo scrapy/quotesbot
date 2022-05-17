@@ -55,14 +55,12 @@ class luxResidenceSpider(CrawlSpiderFluximmo):
         i.add_xpath("price", f"{ROOT_XPATH}/*[contains(@class, 'informationSale')]//text()")
         i.add_xpath("area", f'{ROOT_XPATH}/*[contains(@class, " area")]//text()')
 
-        # land not present 
-        # i.add_xpath("land_surface", f'{ROOT_XPATH}/*[contains(text(), "terrain")]/preceding-sibling::div/text()')
+        i.add_value("land_surface", "")
 
         i.add_xpath("rooms", f"{ROOT_XPATH}/*[contains(@class, ' nbrRoom')]//text()")
         i.add_xpath("bedrooms", f"{ROOT_XPATH}/*[contains(@class, ' nbrBedroom')]//text()")
 
-        # postal code not present
-        # i.add_xpath("postal_code", f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]/h3/text()")
+        i.add_value("postal_code", "")
         i.add_xpath("city", f"{ROOT_XPATH}/*[contains(@class, 'city')]/text()")
 
 

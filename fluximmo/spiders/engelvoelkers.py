@@ -132,11 +132,11 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
         i.add_xpath("rooms", f"{ROOT_XPATH}/*[contains(text(), 'Pièces')]/../following-sibling::div/text()")
         i.add_xpath("bedrooms", f"{ROOT_XPATH}/*[contains(text(), 'Chambres')]/../following-sibling::div/text()")
 
-
-        # i.add_xpath("postal_code", f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]/h3/text()")
+        # no postal code
+        i.add_value("postal_code", "") 
         city = response.xpath(f"{ROOT_XPATH}/h1/following-sibling::div/text()").extract()
-        if city:
-            i.add_value("city", city[0].split(", ")[-1])
+        i.add_value("city", city[0].split(", ")[-1] if city else "")
+            
 
 
         i.add_value("agency", True)
