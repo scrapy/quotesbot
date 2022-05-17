@@ -65,7 +65,9 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@href, 'photos.')]/..//@src")
 
         others = []
-        others += response.xpath(f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src").extract()
+        dpeges = response.xpath(f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src").extract()
+        if dpeges:
+            others += dpeges
 
         li_size = response.xpath(f'normalize-space({ROOT_XPATH}/ul[contains(@class, "grid")]//li)')
         count = 1
