@@ -89,8 +89,13 @@ class immonotSpider(CrawlSpiderFluximmo):
         letter_diagnostic = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'i-gauge-current')]/text()").extract()
         chiffre_diagnostic = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'i-gauge-value')]/text()").extract()
        
-        for index,v in enumerate(letter_diagnostic):
-            others += " ".join(["DPE", letter_diagnostic[index], chiffre_diagnostic[index]]) if index == 0 else " ".join(["GES", letter_diagnostic[index], chiffre_diagnostic[index]])
+        count = 0
+        for v in letter_diagnostic:
+            if count == 0:
+                others.append(" ".join(["DPE", letter_diagnostic[count], chiffre_diagnostic[count]])) 
+            else:
+                 others.append(" ".join(["GES", letter_diagnostic[count], chiffre_diagnostic[count]]))
+            count += 1
 
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "id-spec")]')[:-1]
         for elem in elems:
