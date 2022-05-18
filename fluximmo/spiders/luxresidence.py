@@ -83,7 +83,7 @@ class luxResidenceSpider(CrawlSpiderFluximmo):
             others += "GES " + response.xpath(f"{ROOT_XPATH}/*[contains(@data-testid, 'gesClasseActive')]/text()").extract_first()
         except:pass
 
-         i.add_value("others", others)
+        i.add_value("others", others)
         
 
         i.add_xpath(
