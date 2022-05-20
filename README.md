@@ -35,43 +35,63 @@
 
 
 ## Spiders à déveloper
-1. Arthurimmo
+debugg - others 45min 48min 20min
+
+1. Arthurimmo 
+45min
 * https://www.arthurimmo.com/recherche,basic.htm?transactions=acheter&types%5B0%5D=maison&types%5B1%5D=appartement&types%5B2%5D=terrain&types%5B3%5D=immeuble&types%5B4%5D=local-commercial&types%5B5%5D=boutique&types%5B6%5D=parking&types%5B7%5D=bureau&page=1
 * https://www.arthurimmo.com/recherche,basic.htm?transactions=louer&types%5B0%5D=maison&types%5B1%5D=appartement&types%5B2%5D=terrain&types%5B3%5D=immeuble&types%5B4%5D=local-commercial&types%5B5%5D=boutique&types%5B6%5D=fonds-de-commerce&types%5B7%5D=parking&types%5B8%5D=bureau&sort=-updated_at&page=1
    
 2. Goodshowcase
+58min
 * ACHAT = https://www.goodshowcase.com/index.php?mod=search&url_transaction%5B%5D=acheter&url_bien%5B%5D=appartement&url_bien%5B%5D=maison&url_bien%5B%5D=terrain&url_bien%5B%5D=local&url_bien%5B%5D=stationnement&id_agence=&id_region%5B%5D=84&id_region%5B%5D=27&id_dept%5B%5D=&cp=&distance=0&distroute=0&tmpsroute=0&surfmin=&surfmax=&sejmin=&sejmax=&cuisine=&chauffage=&sdbmin=&sdbmax=&sdemin=&sdemax=&wcmin=&wcmax=&etagemin=&etagemax=&ascenseur=&balcon=&bbc=&box=&calme=&cave=&cheminee=&climatisation=&dernier_etage=&digicode=&gardien=&interphone=&parking=&parquet=&piscine=&meuble=&refait_a_neuf=&terrasse=&vue_degagee=&terrmin=&terrmax=&prixmin=&prixmax=&piecemin=&piecemax=&chambremin=&chambremax=&constructmin=&constructmax=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&visavis=&affph=&affmr=&affme=&dataj=1&page=1&carte=&ordre=ajout&page=1#h1
 * LOCATION = https://www.goodshowcase.com/index.php?mod=search&url_transaction%5B%5D=louer&url_bien%5B%5D=appartement&url_bien%5B%5D=maison&url_bien%5B%5D=terrain&url_bien%5B%5D=local&url_bien%5B%5D=stationnement&id_agence=&id_region%5B%5D=84&id_region%5B%5D=27&id_dept%5B%5D=&cp=&distance=0&distroute=0&tmpsroute=0&surfmin=&surfmax=&sejmin=&sejmax=&cuisine=&chauffage=&sdbmin=&sdbmax=&sdemin=&sdemax=&wcmin=&wcmax=&etagemin=&etagemax=&ascenseur=&balcon=&bbc=&box=&calme=&cave=&cheminee=&climatisation=&dernier_etage=&digicode=&gardien=&interphone=&parking=&parquet=&piscine=&meuble=&refait_a_neuf=&terrasse=&vue_degagee=&terrmin=&terrmax=&prixmin=&prixmax=&piecemin=&piecemax=&chambremin=&chambremax=&constructmin=&constructmax=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&visavis=&affph=&affmr=&affme=&dataj=1&page=1&carte=&ordre=ajout&page=1#h1
     - Location & achat
     - Scraping 4 régions par 4 régions
     - Tout type de biens
     - Tri sur les annonces de moins de 24h
+
+worked  1h20min
 3. ACHAT + LOC = https://www.engelvoelkers.com/fr/search/?q=&startIndex=34&businessArea=residential&sortOrder=DESC&sortField=newestProfileCreationTimestamp&pageSize=18&facets=bsnssr%3Aresidential%3B
     - Location & achat
     - Tri du plus recent au moins récent
 	- pagination différente (startIndex, pageSize) (override le next_list_page)
     - Scraping page France
+
+45min
 4. https://www.lux-residence.com/fr/search?idtt=2&idpays=250&tri=DatePublicationAntechronologique&idtb=2,1,13,14,9,4&idstb=1,27,52,10,2&p=1
     - Achat
     - Tri par le plus récent
     - Scraping page France
+45min
 5. [https://www.proprioo.fr/nosannonces?status=PUBLISHED&page=1](https://www.proprioo.fr/nosannonces?status=PUBLISHED&page=1)
     - Scraping page France
+    <!-- ::::: A FAIRE , utiliser burp suite pour trouver la requete qui permet de next page, le network browser ne suffit pas (pas trouvé)::::: -->
+
 6. [https://www.acheter-louer.fr/recherche?categorie=achat&dep=92,75&prix-min=0&prix-max=10000000&type=appartement,maison,appartement-neuf,projet-terrain,terrain,villa,mas,duplex,boutique,hôtel-particulier,château,bureau,bâtiment,parking,immeuble,loft&surface-global-min=0&surface-globale-max=100000&sort={"pa.DateInsert"%3A1}](https://www.acheter-louer.fr/recherche?categorie=achat&dep=04&prix-min=0&prix-max=10000000&surface-global-min=0&surface-globale-max=100000)
     - Scraping régions par régions
     - Tout type de biens
+51 min
 7. [https://www.immonot.com/immobilier.do](https://www.immonot.com/immobilier.do)
     - Scraping page France
     - Tri date de publication
+35min
 8. [https://www.barnes-international.com/fr/vente/france/rechercher](https://www.barnes-international.com/fr/vente/france/rechercher)
     - Scraping page France
     - Tri par nouveautées
+37min
 9. [https://www.sothebysrealty-france.com/fr/vente-proprietes-de-luxe/](https://www.sothebysrealty-france.com/fr/vente-proprietes-de-luxe/)
     - Scraping page France
     - Tri par nouveautées
+
+<!-- parser un json https://www.agencessaintferdinand.com/wp-admin/admin-ajax.php?status%5B%5D=vente&bedrooms=&min-area=&max-price=&action=houzez_half_map_listings&paged=2&sortby=&item_layout=v6  -->
 10. [https://www.agencessaintferdinand.com/resultats-de-recherche/?status[]=vente&bedrooms=&min-area=&max-price=](https://www.agencessaintferdinand.com/resultats-de-recherche/?status%5B%5D=vente&bedrooms=&min-area=&max-price=)
     - Scraping page France
     - Tri par NEW TO OLD
+
+<!-- TOTAL 10/30 SPIDER -->
+total 509 min de travail (dont 113 lié debug au début qui ne devrait plus se produire étant familiarisé avec la structure)
+
 11. [https://kwfrance.com/result/index?view_type=map_list&btn_votre_projet_text=Achat+-+Appartement+(%2B5)&PropertieSearch[transaction_ides][]=0&PropertieSearch[transaction_ides][]=1&PropertieSearch[transaction_ides][]=0&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=1&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=2&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=4&PropertieSearch[programme_neuf]=0&PropertieSearch[prestige]=0&PropertieSearch[prestige]=1&PropertieSearch[bail_type]=0&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=6&PropertieSearch[prop_typeides][]=0&PropertieSearch[prop_typeides][]=3&PropertieSearch[autres]=0&PropertieSearch[departments][]=Var&PropertieSearch[department_codes][]=83&btn_budget_text=Budget&PropertieSearch[prix_min]=&PropertieSearch[prix_max]=&btn_piece_text=Pièces&PropertieSearch[nbr_piece][]=0&PropertieSearch[nbr_piece][]=0&PropertieSearch[nbr_piece][]=0&PropertieSearch[nbr_piece][]=0&PropertieSearch[nbr_piece][]=0&PropertieSearch[nbr_chambre][]=0&PropertieSearch[nbr_chambre][]=0&PropertieSearch[nbr_chambre][]=0&PropertieSearch[nbr_chambre][]=0&PropertieSearch[nbr_chambre][]=0&btn_surface_text=Surface&PropertieSearch[surface_global_min]=&PropertieSearch[surface_global_max]=&PropertieSearch[surface_terrain_min]=&PropertieSearch[surface_terrain_max]=&PropertieSearch[sort]=date_desc&PropertieSearch[ancien]=0&PropertieSearch[neuf]=0&PropertieSearch[via_viager]=0&PropertieSearch[prog_neuf]=0&PropertieSearch[rez_chaussee]=0&PropertieSearch[rez_jardin]=0&PropertieSearch[dernier_etage]=0&PropertieSearch[bordmer]=0&PropertieSearch[piscine]=0&PropertieSearch[meuble]=0&PropertieSearch[nbr_balcon]=0&PropertieSearch[jardin]=0&PropertieSearch[tennis]=0&PropertieSearch[calme]=0&PropertieSearch[soussol]=0&PropertieSearch[nbr_terrrasse]=0&PropertieSearch[gardien]=0&PropertieSearch[ascenseur]=0&PropertieSearch[grenier]=0&PropertieSearch[etage]=0&PropertieSearch[vuemer]=0&PropertieSearch[cheminee]=0&PropertieSearch[nbr_cave]=0&PropertieSearch[nbr_garage]=0&PropertieSearch[acces_handicapes]=0&PropertieSearch[alarme]=0&PropertieSearch[digicode]=0&PropertieSearch[adsl_fibreoptique]=0&PropertieSearch[nbr_wc]=0&PropertieSearch[nbr_sdb]=0&PropertieSearch[sejour_double]=0&PropertieSearch[slc_cuisine]=0&PropertieSearch[slc_typechauffage_collectif]=0&PropertieSearch[slc_typechauffage_individuel]=0&PropertieSearch[slc_typechauffage_mixte]=0&PropertieSearch[mode_chauffage_gaz]=0&PropertieSearch[mode_chauffage_electrique]=0&PropertieSearch[mode_chauffage_fuel]=0&PropertieSearch[mode_chauffage_autre]=0&PropertieSearch[mode_chauffage_sol]=0&PropertieSearch[meca_chauffage_radiateur]=0&PropertieSearch[meca_chauffage_convecteurs]=0&PropertieSearch[exposition_sejour_nord]=0&PropertieSearch[exposition_sejour_sud]=0&PropertieSearch[exposition_sejour_est]=0&PropertieSearch[exposition_sejour_ouest]=0&PropertieSearch[prop_url_visite_virtuelle]=0&PropertieSearch[LienVideo]=0&PropertieSearch[typemandat_id]=0](https://kwfrance.com/result/index?view_type=map_list&btn_votre_projet_text=Achat+-+Appartement+%28%2B5%29&PropertieSearch%5Btransaction_ides%5D%5B%5D=0&PropertieSearch%5Btransaction_ides%5D%5B%5D=1&PropertieSearch%5Btransaction_ides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=1&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=2&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=4&PropertieSearch%5Bprogramme_neuf%5D=0&PropertieSearch%5Bprestige%5D=0&PropertieSearch%5Bprestige%5D=1&PropertieSearch%5Bbail_type%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=6&PropertieSearch%5Bprop_typeides%5D%5B%5D=0&PropertieSearch%5Bprop_typeides%5D%5B%5D=3&PropertieSearch%5Bautres%5D=0&PropertieSearch%5Bdepartments%5D%5B%5D=Var&PropertieSearch%5Bdepartment_codes%5D%5B%5D=83&btn_budget_text=Budget&PropertieSearch%5Bprix_min%5D=&PropertieSearch%5Bprix_max%5D=&btn_piece_text=Pi%C3%A8ces&PropertieSearch%5Bnbr_piece%5D%5B%5D=0&PropertieSearch%5Bnbr_piece%5D%5B%5D=0&PropertieSearch%5Bnbr_piece%5D%5B%5D=0&PropertieSearch%5Bnbr_piece%5D%5B%5D=0&PropertieSearch%5Bnbr_piece%5D%5B%5D=0&PropertieSearch%5Bnbr_chambre%5D%5B%5D=0&PropertieSearch%5Bnbr_chambre%5D%5B%5D=0&PropertieSearch%5Bnbr_chambre%5D%5B%5D=0&PropertieSearch%5Bnbr_chambre%5D%5B%5D=0&PropertieSearch%5Bnbr_chambre%5D%5B%5D=0&btn_surface_text=Surface&PropertieSearch%5Bsurface_global_min%5D=&PropertieSearch%5Bsurface_global_max%5D=&PropertieSearch%5Bsurface_terrain_min%5D=&PropertieSearch%5Bsurface_terrain_max%5D=&PropertieSearch%5Bsort%5D=date_desc&PropertieSearch%5Bancien%5D=0&PropertieSearch%5Bneuf%5D=0&PropertieSearch%5Bvia_viager%5D=0&PropertieSearch%5Bprog_neuf%5D=0&PropertieSearch%5Brez_chaussee%5D=0&PropertieSearch%5Brez_jardin%5D=0&PropertieSearch%5Bdernier_etage%5D=0&PropertieSearch%5Bbordmer%5D=0&PropertieSearch%5Bpiscine%5D=0&PropertieSearch%5Bmeuble%5D=0&PropertieSearch%5Bnbr_balcon%5D=0&PropertieSearch%5Bjardin%5D=0&PropertieSearch%5Btennis%5D=0&PropertieSearch%5Bcalme%5D=0&PropertieSearch%5Bsoussol%5D=0&PropertieSearch%5Bnbr_terrrasse%5D=0&PropertieSearch%5Bgardien%5D=0&PropertieSearch%5Bascenseur%5D=0&PropertieSearch%5Bgrenier%5D=0&PropertieSearch%5Betage%5D=0&PropertieSearch%5Bvuemer%5D=0&PropertieSearch%5Bcheminee%5D=0&PropertieSearch%5Bnbr_cave%5D=0&PropertieSearch%5Bnbr_garage%5D=0&PropertieSearch%5Bacces_handicapes%5D=0&PropertieSearch%5Balarme%5D=0&PropertieSearch%5Bdigicode%5D=0&PropertieSearch%5Badsl_fibreoptique%5D=0&PropertieSearch%5Bnbr_wc%5D=0&PropertieSearch%5Bnbr_sdb%5D=0&PropertieSearch%5Bsejour_double%5D=0&PropertieSearch%5Bslc_cuisine%5D=0&PropertieSearch%5Bslc_typechauffage_collectif%5D=0&PropertieSearch%5Bslc_typechauffage_individuel%5D=0&PropertieSearch%5Bslc_typechauffage_mixte%5D=0&PropertieSearch%5Bmode_chauffage_gaz%5D=0&PropertieSearch%5Bmode_chauffage_electrique%5D=0&PropertieSearch%5Bmode_chauffage_fuel%5D=0&PropertieSearch%5Bmode_chauffage_autre%5D=0&PropertieSearch%5Bmode_chauffage_sol%5D=0&PropertieSearch%5Bmeca_chauffage_radiateur%5D=0&PropertieSearch%5Bmeca_chauffage_convecteurs%5D=0&PropertieSearch%5Bexposition_sejour_nord%5D=0&PropertieSearch%5Bexposition_sejour_sud%5D=0&PropertieSearch%5Bexposition_sejour_est%5D=0&PropertieSearch%5Bexposition_sejour_ouest%5D=0&PropertieSearch%5Bprop_url_visite_virtuelle%5D=0&PropertieSearch%5BLienVideo%5D=0&PropertieSearch%5Btypemandat_id%5D=0)
     - Scraping page France
     - Achat & location
