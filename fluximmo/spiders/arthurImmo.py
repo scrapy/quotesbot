@@ -5,7 +5,8 @@ from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
-from ..items.annonce import Annonce
+from ..items.arthurimmo import Arthurimmo
+import pdb
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,7 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
 
     def parse_item(self, response):
         logger.debug(f'parse_item --------------> {response.url}')
-        i = ItemLoader(item=Annonce(), response=response)
+        i = ItemLoader(item=Arthurimmo(), response=response)
         ROOT_XPATH = "//*/body/"
 
         i.add_value("url", response.url) # Toujours garder tel quel
@@ -67,7 +68,7 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
         others = []
         dpeges = response.xpath(f"{ROOT_XPATH}/*[contains(@src, 'dpe.')]/@src").extract()
         if dpeges:
-            others += dpeges
+            others += [elem.upper().replace('=', ' ') for elem in dpeges[0].split('?')[1].split('&')[:2]]
 
         elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "grid")]//li')
         for elem in elems:

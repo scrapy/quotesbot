@@ -5,7 +5,7 @@ from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
-from ..items.annonce import Annonce
+from ..items.efficity import Efficity
 import pdb
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class EffiCitySpider(CrawlSpiderFluximmo):
 
     def parse_item(self, response):
         logger.debug(f'parse_item --------------> {response.url}')
-        i = ItemLoader(item=Annonce(), response=response)
+        i = ItemLoader(item=Efficity(), response=response)
         ROOT_XPATH = "//*/body/"
 
         i.add_value("url", response.url) # Toujours garder tel quel
@@ -63,13 +63,9 @@ class EffiCitySpider(CrawlSpiderFluximmo):
         i.add_xpath("bedrooms", f"{ROOT_XPATH}/ul[contains(@class, 'details')]/li//*[contains(@alt, 'chambres')]/@alt")
 
 
-        loc = response.xpath('//*[contains(@property, "og:desc")]/@content').extract_first().split(' – ')[:2]
-        i.add_value("postal_code", loc[0])
-        try:
-            i.add_value("city", loc[1])
-        except:
-            ref = "MAISON" if "MAISON" in loc[0] else "APPARTEMENT"
-            i.add_value("city", ' '.join(loc[0].split(ref)[0].split(' ')[1:-1]))
+        loc = response.xpath('//*[contains(@class, "details-location")]/text()').extract_first().split('(')
+        i.add_value("postal_code", loc[1].replace(')', '').strip())
+        i.add_value("city", loc[0].strip())
 
         i.add_value("agency", True)
         i.add_value("agency_name", "Efficity")
@@ -106,4 +102,4 @@ class EffiCitySpider(CrawlSpiderFluximmo):
     @staticmethod
     def extract_site_id(url):
         url_cleaned = clean_url(url)
-        return url_cleaned.split("/")[-2].split("_")[-1]
+        return url_cleaned.split("/")[-1].split("_")[-1]

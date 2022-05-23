@@ -5,7 +5,7 @@ from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
-from ..items.annonce import Annonce
+from ..items.engelvoelkers import Engelvoelkers
 from scrapy import Request
 from datetime import datetime
 import pdb
@@ -108,7 +108,7 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
 
     def parse_item(self, response):
         logger.debug(f'parse_item --------------> {response.url}')
-        i = ItemLoader(item=Annonce(), response=response)
+        i = ItemLoader(item=Engelvoelkers(), response=response)
         ROOT_XPATH = "//*/body/"
 
         i.add_value("url", response.url) # Toujours garder tel quel
@@ -149,7 +149,7 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
 
         elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "exposee-detail-facts")]//li')
         for elem in elems:
-            value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip()
+            value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip().replace(':', ' ')
             print("value", value)
             others.append(value)
         

@@ -5,7 +5,7 @@ from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
-from ..items.annonce import Annonce
+from ..items.immonot import Immonot
 from scrapy import Request
 from datetime import datetime
 import pdb
@@ -36,7 +36,7 @@ class immonotSpider(CrawlSpiderFluximmo):
 
     def parse_item(self, response):
         logger.debug(f'parse_item --------------> {response.url}')
-        i = ItemLoader(item=Annonce(), response=response)
+        i = ItemLoader(item=Immonot(), response=response)
         ROOT_XPATH = "//*/body/"
 
         i.add_value("url", response.url) # Toujours garder tel quel
@@ -46,7 +46,8 @@ class immonotSpider(CrawlSpiderFluximmo):
         i.add_value("site_id", self.extract_site_id(response.url)) # Toujours garder tel quel
         i.add_value("origin", response.meta.get("origin")) # Toujours garder tel quel
 
-        i.add_xpath("title", f'{ROOT_XPATH}/*[contains(@class, "id-title-location")]/text()') # Titre de l'annonce
+        title = response.xpath('//h2/text()').extract()
+        i.add_value("title", title[0].strip().replace('\xa0', '')) # Titre de l'annonce
         description = []
         extract_description = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "id-desc-body")]/text()').extract()
         if extract_description:
@@ -73,9 +74,9 @@ class immonotSpider(CrawlSpiderFluximmo):
 
         location = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "id-title-location")]/text()').extract()
         if location:
-            location = location[0].strip()
-        i.add_value("city", location.split(';')[0] if location else "")
-        i.add_value("postal_code",location.split(';')[1] if location and len(location.split(';')) > 1 else "")
+            location = location[0].strip().replace("\xa0", "")
+        i.add_value("city", location.split('(')[0])
+        i.add_value("postal_code",location.split('(')[1][:-1])
 
 
         i.add_value("agency", True)

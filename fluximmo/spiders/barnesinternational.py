@@ -6,6 +6,10 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
 from ..items.annonce import Annonce
+from scrapy import Request
+from datetime import datetime
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -33,14 +37,14 @@ class BarnesInternationalSpider(CrawlSpiderFluximmo):
             logger.debug(f"Stop next_list_page {response.url}")
             return None
 
-        page_url_formated = page_url_unformated.format(page_index=page_index + 28)
+        page_url_formated = page_url_unformated.format(page_index=(page_index + 28)-1)
 
         request = Request(
             page_url_formated,
             callback=self.parse_list,
             priority=max(100 - page_index, 10),
         )
-        request.meta["page_index"] = page_index + 28
+        request.meta["page_index"] = (page_index + 28)-1
         request.meta["retry_times"] = 0
         request.meta["pages_without_new_ads"] = pages_without_new_ads
         request.meta["page_url"] = page_url_formated
@@ -56,10 +60,10 @@ class BarnesInternationalSpider(CrawlSpiderFluximmo):
             "ref": page_url_formated,
             "departement": None,
             "offer_type": None,
-            "page_index": page_index + 28,
+            "page_index": (page_index + 28)-1,
             "date": datetime.now(),
         }
-        logger.debug(f"Check next_list_page {page_index + 28} => {page_url_formated}")
+        logger.debug(f"Check next_list_page {(page_index + 28)-1} => {page_url_formated}")
         return request
 
     """Génération statique ou dynamique des URLs de listing à scraper (page 1)"""

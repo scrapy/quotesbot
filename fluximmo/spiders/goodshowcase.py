@@ -26,6 +26,8 @@ class GoodShowCaseSpider(CrawlSpiderFluximmo):
 
     """Génération statique ou dynamique des URLs de listing à scraper (page 1)"""
     def generate_all_urls(self):
+        # TODO quand les 6 sont en meme temps, sa fail, retour 400 mais quand on en mets que 2 et le reste en commentaire, sa fonctionne, 
+        # il faudrait faire un petit changement dans la spider parent pour permettre plusieur call a generate_all_urls
         return [
             'https://www.goodshowcase.com/index.php?mod=search&url_transaction%5B%5D=louer&url_bien%5B%5D=appartement&url_bien%5B%5D=maison&url_bien%5B%5D=terrain&url_bien%5B%5D=local&url_bien%5B%5D=stationnement&id_agence=&id_region%5B%5D=84&id_region%5B%5D=27&id_region%5B%5D=53&id_region%5B%5D=94&id_dept%5B%5D=&cp=&distance=0&distroute=0&tmpsroute=0&surfmin=&surfmax=&sejmin=&sejmax=&cuisine=&chauffage=&sdbmin=&sdbmax=&sdemin=&sdemax=&wcmin=&wcmax=&etagemin=&etagemax=&ascenseur=&balcon=&bbc=&box=&calme=&cave=&cheminee=&climatisation=&dernier_etage=&digicode=&gardien=&interphone=&parking=&parquet=&piscine=&meuble=&refait_a_neuf=&terrasse=&vue_degagee=&terrmin=&terrmax=&prixmin=&prixmax=&piecemin=&piecemax=&chambremin=&chambremax=&constructmin=&constructmax=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&visavis=&affph=&affmr=&affme=&dataj=1&page=1&carte=&ordre=ajout&page={page_index}'
             'https://www.goodshowcase.com/index.php?mod=search&url_transaction%5B%5D=acheter&url_bien%5B%5D=appartement&url_bien%5B%5D=maison&url_bien%5B%5D=terrain&url_bien%5B%5D=local&url_bien%5B%5D=stationnement&id_agence=&id_region%5B%5D=84&id_region%5B%5D=27&id_region%5B%5D=94&id_region%5B%5D=53&id_dept%5B%5D=&cp=&distance=0&distroute=0&tmpsroute=0&surfmin=&surfmax=&sejmin=&sejmax=&cuisine=&chauffage=&sdbmin=&sdbmax=&sdemin=&sdemax=&wcmin=&wcmax=&etagemin=&etagemax=&ascenseur=&balcon=&bbc=&box=&calme=&cave=&cheminee=&climatisation=&dernier_etage=&digicode=&gardien=&interphone=&parking=&parquet=&piscine=&meuble=&refait_a_neuf=&terrasse=&vue_degagee=&terrmin=&terrmax=&prixmin=&prixmax=&piecemin=&piecemax=&chambremin=&chambremax=&constructmin=&constructmax=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&motcle%5B%5D=&visavis=&affph=&affmr=&affme=&dataj=1&page=1&carte=&ordre=ajout&page={page_index}'
@@ -65,7 +67,8 @@ class GoodShowCaseSpider(CrawlSpiderFluximmo):
 
 
         i.add_xpath("postal_code", f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]/h3/text()")
-        i.add_xpath("city", f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]/h3/text()")
+        city = response.xpath("//*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]/h3/text()").extract()
+        i.add_value("city", city[0][:-5].strip())
 
 
         i.add_value("agency", True)
@@ -77,16 +80,16 @@ class GoodShowCaseSpider(CrawlSpiderFluximmo):
 
         others = []
         try:
-            others += "DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]//*[contains(@id, 'dpe')]//*[contains(@class, 'arrow')]/text()").extract_first()
+            others.append("DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]//*[contains(@id, 'dpe')]//*[contains(@class, 'arrow')]/text()").extract_first())
         except:pass
         try:
-            others += "GES " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]//*[contains(@id, 'ges')]//*[contains(@class, 'arrow')]/text()").extract_first()
+            others.append("GES " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]//*[contains(@id, 'ges')]//*[contains(@class, 'arrow')]/text()").extract_first())
         except:pass
 
         
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "row")]//*[contains(@id, "carousel-text")]/*[contains(@class, "row")][1]/div')
         for elem in elems:
-            value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip()
+            value = " ".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip()
             print("value", value)
             others.append(value)
         
