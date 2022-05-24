@@ -84,7 +84,6 @@ class immonotSpider(CrawlSpiderFluximmo):
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@id, 'gallery')]//img[contains(@class, 'id-gallery-thumbs')]/@src")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
         others = []
 
         letter_diagnostic = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'i-gauge-current')]/text()").extract()

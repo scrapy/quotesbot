@@ -138,13 +138,11 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
         i.add_value("city", city[0].split(", ")[-1] if city else "")
             
 
-
         i.add_value("agency", True)
         i.add_value("agency_name", "Engelvoelkers")
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@class, 'image-link')]/@href")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
         others = []
 
         elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "exposee-detail-facts")]//li')

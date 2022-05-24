@@ -64,19 +64,29 @@ class KwFranceSpider(CrawlSpiderFluximmo):
         i.add_value("agency", True)
         i.add_value("agency_name", "Kwfrance")
 
-        i.add_xpath("photos",f"{ROOT_XPATH}/img[contains(@class, 'gallery')]/@src")
+        photos = response.xpath(f"{ROOT_XPATH}/img[contains(@class, 'gallery')]/@src").extract()
+        photo_clean = []
+        for photo in photos:
+            if "kwfrance.com" not in photo:
+                photo_clean.append("https://kwfrance.com" + photo)
+            else:
+                photo_clean.append(photo)
+        i.add_value("photos", photo_clean)
 
         others = []
         
         letter_diagnostic = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'active view-diagnostic')]//*[contains(@class, 'value-number')]/text()").extract()
         chiffre_diagnostic = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'active view-diagnostic')]//*[contains(@class, 'name')]/text()").extract()
-       
+        if not chiffre_diagnostic:
+            chiffre_diagnostic = response.xpath("//*[contains(@class, 'diagnostic__table-item--active')]//*[contains(@class, 'properties__value')]/text()").extract()
+            letter_diagnostic = response.xpath("//*[contains(@class, 'diagnostic__table-item--active')]/div[1]/text()").extract()
+
         count = 0
-        for v in letter_diagnostic:
+        for v in chiffre_diagnostic:
             if count == 0:
-                others.append(" ".join(["DPE", letter_diagnostic[count], chiffre_diagnostic[count]])) 
+                others.append(" ".join(["DPE", letter_diagnostic[count], v])) 
             else:
-                 others.append(" ".join(["GES", letter_diagnostic[count], chiffre_diagnostic[count]]))
+                 others.append(" ".join(["GES", letter_diagnostic[count], v]))
             count += 1
 
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "details-list")]/li')

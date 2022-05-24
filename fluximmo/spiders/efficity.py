@@ -72,8 +72,6 @@ class EffiCitySpider(CrawlSpiderFluximmo):
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@class, 'slick-slide slick-cloned')]//div/img[contains(@src, 'photos/l')]/@src")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
-
         others = []
         try:
             others.append("DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'energy-class')]//*[contains(@class, 'active')]/following-sibling::div/span/text()").extract_first() + " kWh/m².an")

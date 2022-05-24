@@ -5,7 +5,7 @@ from .crawl_spider import CrawlSpiderFluximmo
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
 from ..url_utils import clean_url
-from ..items.annonce import Annonce
+from ..items.sothebysrealty import Sothebysrealty
 import pdb
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class BarnesInternationalSpider(CrawlSpiderFluximmo):
 
     def parse_item(self, response):
         logger.debug(f'parse_item --------------> {response.url}')
-        i = ItemLoader(item=Annonce(), response=response)
+        i = ItemLoader(item=Sothebysrealty(), response=response)
         ROOT_XPATH = "//*/body/"
 
         i.add_value("url", response.url) # Toujours garder tel quel
@@ -57,13 +57,23 @@ class BarnesInternationalSpider(CrawlSpiderFluximmo):
         i.add_xpath("rooms", f"{ROOT_XPATH}/*[contains(text(), 'Pièces')]/following-sibling::span/text()")
         i.add_xpath("bedrooms", f"{ROOT_XPATH}/*[contains(text(), 'Chambres')]/following-sibling::span/text()")
 
-        i.add_value("postal_code", response.url.split('/')[-1].split('-')[-1])
-        i.add_xpath("city", f"{ROOT_XPATH}/*[contains(text(), 'Ville')]/following-sibling::span/text()")
+
+        location = response.xpath(f"{ROOT_XPATH}/*[contains(text(), 'Ville')]/following-sibling::span/text()").extract()
+        i.add_value("postal_code", location[0])
+        i.add_value("city", location[0].split('(')[0].strip())
 
         i.add_value("agency", True)
         i.add_value("agency_name", "SothebysRealty")
 
-        i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@class, 'galleryImg')]/@src")
+
+        photos = response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'galleryImg')]/@src").extract()
+        photo_clean = []
+        for photo in photos:
+            if "sothebysrealty-france.com" not in photo:
+                photo_clean.append("https://www.sothebysrealty-france.com" + photo)
+            else:
+                photo_clean.append(photo)
+        i.add_value("photos", photo_clean)
 
         others = []
 
@@ -94,4 +104,4 @@ class BarnesInternationalSpider(CrawlSpiderFluximmo):
     @staticmethod
     def extract_site_id(url):
         url_cleaned = clean_url(url)
-        return url_cleaned.split("/")[3]
+        return url_cleaned.split("/")[5]

@@ -76,8 +76,6 @@ class GoodShowCaseSpider(CrawlSpiderFluximmo):
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@class, 'thumbnail')]/img/@src")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
-
         others = []
         try:
             others.append("DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@class, 'row')]//*[contains(@id, 'carousel-text')]//*[contains(@id, 'dpe')]//*[contains(@class, 'arrow')]/text()").extract_first())

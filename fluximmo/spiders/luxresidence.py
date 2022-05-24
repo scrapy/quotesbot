@@ -31,6 +31,7 @@ class luxResidenceSpider(CrawlSpiderFluximmo):
     """Génération statique ou dynamique des URLs de listing à scraper (page 1)"""
     def generate_all_urls(self):
         return [
+            # fonctionnait au début de mes test mais ne semble plus fonctionner (site dynamique ?)
             'https://www.lux-residence.com/fr/search?idtt=2&idpays=250&tri=DatePublicationAntechronologique&idtb=2,1,13,14,9,4&idstb=1,27,52,10,2&p={page_index}'
         ]
 
@@ -69,7 +70,6 @@ class luxResidenceSpider(CrawlSpiderFluximmo):
 
         i.add_xpath("photos",f"{ROOT_XPATH}/*[contains(@class, 'slider animated')]/li//@src")
 
-        # TODO mettre dans others toute les caractéristique + dpe ges
         i.add_xpath(
             "others",
             f"{ROOT_XPATH}/*[contains(@class, 'listBlock')]/li//text()",
@@ -77,10 +77,10 @@ class luxResidenceSpider(CrawlSpiderFluximmo):
 
         others = []
         try:
-            others += "DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@data-testid, 'dpeClasseActive')]/text()").extract_first()
+            others.append("DPE " + response.xpath(f"{ROOT_XPATH}/*[contains(@data-testid, 'dpeClasseActive')]/text()").extract_first())
         except:pass
         try:
-            others += "GES " + response.xpath(f"{ROOT_XPATH}/*[contains(@data-testid, 'gesClasseActive')]/text()").extract_first()
+            others.append("GES " + response.xpath(f"{ROOT_XPATH}/*[contains(@data-testid, 'gesClasseActive')]/text()").extract_first())
         except:pass
 
         i.add_value("others", others)

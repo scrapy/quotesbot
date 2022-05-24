@@ -27,6 +27,7 @@ class DanielFeauSpider(CrawlSpiderFluximmo):
     """Génération statique ou dynamique des URLs de listing à scraper (page 1)"""
     def generate_all_urls(self):
         return [
+            # ne fonctionne pas, site dynamique pour le next page
             'https://danielfeau.com/fr/recherche',
         ]
 
