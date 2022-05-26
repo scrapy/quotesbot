@@ -76,7 +76,10 @@ class immonotSpider(CrawlSpiderFluximmo):
         if location:
             location = location[0].strip().replace("\xa0", "")
         i.add_value("city", location.split('(')[0])
-        i.add_value("postal_code",location.split('(')[1][:-1])
+        try:
+            i.add_value("postal_code", location.split('(')[1][:-1])
+        except:
+            logging.debug('Error while extracting postal_code for immonot')
 
 
         i.add_value("agency", True)
@@ -100,7 +103,6 @@ class immonotSpider(CrawlSpiderFluximmo):
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "id-spec")]')[:-1]
         for elem in elems:
             value = " ".join([cell for cell in elem.xpath('.//text()').extract() if cell and cell.strip()]).strip()
-            print("value", value)
             others.append(value)
         
         i.add_value(

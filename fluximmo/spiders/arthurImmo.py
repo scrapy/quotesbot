@@ -73,7 +73,6 @@ class ArthurImmoSpider(CrawlSpiderFluximmo):
         elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "grid")]//li')
         for elem in elems:
             value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip()
-            print("value", value)
             others.append(value)
         
         i.add_value(

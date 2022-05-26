@@ -18,6 +18,8 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
     name = "engelvoelkers"  # nom du portail
     allowed_domains = ["www.engelvoelkers.com"]  # Domaine(s) du portail
     website = "www.engelvoelkers.com"  # domaine principal
+    MAX_PAGES_WITHOUT_NEW_ADS = 100
+    MAX_PAGES = 100
 
     def __init__(self, *args, **kwargs):
         super(engelvoelkersSpider, self).__init__(*args, **kwargs)
@@ -148,7 +150,6 @@ class engelvoelkersSpider(CrawlSpiderFluximmo):
         elems = response.xpath(f'{ROOT_XPATH}/ul[contains(@class, "exposee-detail-facts")]//li')
         for elem in elems:
             value = "".join([cell for cell in elem.xpath('.//text()').extract() if cell]).strip().replace(':', ' ')
-            print("value", value)
             others.append(value)
         
         i.add_value(

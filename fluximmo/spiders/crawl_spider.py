@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 class CrawlSpiderFluximmo(CrawlSpider):
     handle_httpstatus_list = [410, 404]
-    MAX_PAGES_WITHOUT_NEW_ADS = 2
-    MAX_PAGES = 4
+    MAX_PAGES_WITHOUT_NEW_ADS = 10
+    MAX_PAGES = 10
 
     def __init__(self, *args, **kwargs):
         super(CrawlSpiderFluximmo, self).__init__(*args, **kwargs)

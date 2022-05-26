@@ -84,7 +84,6 @@ class EffiCitySpider(CrawlSpiderFluximmo):
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@class, "program-details-sideba")]/ul/li')
         for elem in elems:
             value = " ".join([cell for cell in elem.xpath('./text()').extract() if cell]).strip().replace(':', '')
-            print("value", value)
             others.append(value)
 
         i.add_value(

@@ -82,7 +82,6 @@ class propriooSpider(CrawlSpiderFluximmo):
         elems = response.xpath(f'{ROOT_XPATH}/*[contains(@data-test, "panel-content")]/ul/li/div')
         for elem in elems:
             value = " ".join([cell for cell in elem.xpath('.//text()').extract() if cell]).replace(':', ' ').strip()
-            print("value", value)
             others.append(value)
         
         i.add_value(
