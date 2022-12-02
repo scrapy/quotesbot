@@ -5,8 +5,8 @@ from scrapy.spiders import Rule, CrawlSpider
 from scrapy.crawler import CrawlerProcess
 # from mdb import get_database
 import datetime
-import pytz
-now = datetime.datetime.now(pytz.timezone('US/Pacific'))
+# import pytz
+# now = datetime.datetime.now(pytz.timezone('US/Pacific'))
 
 
 class ToScrapeCSSSpider(scrapy.Spider):
